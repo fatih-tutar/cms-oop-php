@@ -1,0 +1,19 @@
+{
+    "name": "dijital/cms",
+    "description": "Phpbasics cms project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./App",
+            "Core\\": "./Core"
+        }
+    },
+    "authors": [
+        {
+            "name": "fatih",
+            "email": "fatihtutar93@gmail.com"
+        }
+    ],
+    "require": {
+        "bramus/router": "^1.6"
+    }
+}
