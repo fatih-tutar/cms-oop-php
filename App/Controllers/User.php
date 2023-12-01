@@ -14,6 +14,15 @@ class User extends BaseController{
         print_r($users);
     }
 
+    public function Test() {
+        $this->view->load('test',['name' => 'Fatih']);
+    }
+
+    public function getTest() {
+        $get = $this->request->get();
+        print_r($get);
+    }
+
 }
 
 ?>
