@@ -6,3 +6,6 @@ function assets($assetName){
 function redirect($url){
     header('Location:'.URL.$url);
 }
+function _link($url){
+    return URL.$url;
+}

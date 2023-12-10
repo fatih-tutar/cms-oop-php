@@ -9,15 +9,12 @@ class Auth extends BaseController
 {
     public function Index()
     {
-        $data['navbar'] = $this->view->load('static/navbar');
-        $data['sidebar'] = $this->view->load('static/sidebar');
-
-        echo $this->view->load('auth/index', compact('data'));
+        echo $this->view->load('auth/index');
     }
     public function Login()
     {
         $post = $this->request->post();
-        print_r($post);
+        echo json_encode($post);
     }
     public function Logout()
     {
