@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form action="/cms/get-test" method="post">
+<form action="/patika/cms-oop-php/get-test" method="get">
     <input type="text" name="name"><br/>
     <button type="submit" name="submit" value="1">Send</button>
 </form>
