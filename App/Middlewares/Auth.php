@@ -10,7 +10,7 @@ class Auth extends BaseMiddleware
     public function isLogin() {
         $login = Session::getSession('login');
         if(!$login){
-            session_destroy();
+            session_destroy();  
             redirect('login');
         }
     }

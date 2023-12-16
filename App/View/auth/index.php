@@ -61,7 +61,9 @@
 
         axios.post('<?= _link('login') ?>', formData)
           .then(res => {
-            console.log(res);
+            if(res.data.redirect){
+              window.location.href = res.data.redirect;
+            }
             Swal.fire(
               res.data.title,
               res.data.msg,

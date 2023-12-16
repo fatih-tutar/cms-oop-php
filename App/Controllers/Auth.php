@@ -22,7 +22,7 @@ class Auth extends BaseController
             $status = 'success';
             $title = 'Login successful';
             $msg ='Process completed succesfully';
-            echo json_encode(['status' => $status, 'title' => $title, 'msg' => $msg]);
+            echo json_encode(['status' => $status, 'title' => $title, 'msg' => $msg, 'redirect' => _link()]);
             exit();
         }else{
             $status = 'error';
