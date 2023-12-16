@@ -6,6 +6,7 @@
 - User Authentication
 - Session Management
 - Responsive Design with **Bootstrap**
+- User-Friendly Alerts with **[SweetAlert](https://sweetalert2.github.io/)**
 - Asynchronous Requests with **Axios**
 - Database Management with **MySQL**
 - Theme : **[AdminLTE](https://adminlte.io/)**
