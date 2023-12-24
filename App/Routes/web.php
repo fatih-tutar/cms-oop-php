@@ -13,6 +13,7 @@ $cms->router->get('/logout', 'Controllers\Auth@Logout');
 $cms->router->mount('/customer', function() use ($cms) {
     $cms->router->get('/', 'Controllers\Customer@Index');
     $cms->router->get('/add', 'Controllers\Customer@Add');
+    $cms->router->post('/add', 'Controllers\Customer@CreateCustomer');
     $cms->router->get('/edit/([0-9]+)', 'Controllers\Customer@Edit');
 });
 $cms->router->mount('/project', function() use ($cms) {

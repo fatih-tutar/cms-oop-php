@@ -16,6 +16,7 @@ class Project extends BaseController
 
         $data['navbar'] = $this->view->load('static/navbar');
         $data['sidebar'] = $this->view->load('static/sidebar');
+        $data['footer'] = $this->view->load('static/footer');
 
         echo $this->view->load('project/index', compact('data'));
     }
@@ -29,6 +30,7 @@ class Project extends BaseController
 
         $data['navbar'] = $this->view->load('static/navbar');
         $data['sidebar'] = $this->view->load('static/sidebar');
+        $data['footer'] = $this->view->load('static/footer');
 
         echo $this->view->load('project/add', compact('data'));
     }
@@ -42,6 +44,7 @@ class Project extends BaseController
 
         $data['navbar'] = $this->view->load('static/navbar');
         $data['sidebar'] = $this->view->load('static/sidebar');
+        $data['footer'] = $this->view->load('static/footer');
 
         echo $this->view->load('project/edit', compact('data'));
     }

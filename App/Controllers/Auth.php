@@ -15,6 +15,22 @@ class Auth extends BaseController
     public function Login()
     {
         $data = $this->request->post();
+
+        if(!$data['email']){
+            $status = 'error';
+            $title = 'Access Error';
+            $msg ='The email field cannot be left empty.';
+            echo json_encode(['status' => $status, 'title' => $title, 'msg' => $msg]);
+            exit();
+        }
+        if(!$data['password']){
+            $status = 'error';
+            $title = 'Access Error';
+            $msg ='The password field cannot be left empty.';
+            echo json_encode(['status' => $status, 'title' => $title, 'msg' => $msg]);
+            exit();
+        }
+
         $AuthModel = new ModelAuth();
         $access = $AuthModel->userLogin($data);
 
