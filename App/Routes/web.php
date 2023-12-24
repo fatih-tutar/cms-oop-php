@@ -15,6 +15,7 @@ $cms->router->mount('/customer', function() use ($cms) {
     $cms->router->get('/add', 'Controllers\Customer@Add');
     $cms->router->post('/add', 'Controllers\Customer@CreateCustomer');
     $cms->router->get('/edit/([0-9]+)', 'Controllers\Customer@Edit');
+    $cms->router->post('/edit)', 'Controllers\Customer@EditCustomer');
 });
 $cms->router->mount('/project', function() use ($cms) {
     $cms->router->get('/', 'Controllers\Project@Index');
