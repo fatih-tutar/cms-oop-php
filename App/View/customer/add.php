@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="<?= assets('plugins/fontawesome-free/css/all.min.css') ?>">
   <link rel="stylesheet" href="<?= assets('css/adminlte.min.css') ?>">
+  <link rel="stylesheet" href="<?= assets('plugins/sweetalert2/sweetalert2.min.css') ?>">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">  
@@ -95,7 +96,7 @@
     formData.append('customer_email', customer_email);
     formData.append('customer_address', customer_address);
 
-    axios.post('<?= _link('login') ?>', formData)
+    axios.post('<?= _link('customer/add') ?>', formData)
         .then(res => {
         if(res.data.redirect){
             window.location.href = res.data.redirect;

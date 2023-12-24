@@ -5,7 +5,7 @@ namespace App\Model;
 use Core\BaseModel;
 use Core\Session;
 
-class Auth extends BaseModel
+class ModelAuth extends BaseModel
 {
     public function userLogin($data){
         extract($data);

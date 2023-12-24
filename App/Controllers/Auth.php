@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Model\Auth as ModelAuth;
+use App\Model\ModelAuth;
 use Core\BaseController;
 use Core\Session;
 
