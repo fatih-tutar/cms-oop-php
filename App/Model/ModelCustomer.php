@@ -35,6 +35,9 @@ class ModelCustomer extends BaseModel
     public function getCustomers(){
        return $this->db->query('SELECT * FROM customers',true);
     }
+    public function getCustomer($id){
+        return $this->db->query("SELECT * FROM customers WHERE customers.id = '$id'");
+    }
     public function editCustomer($data){
         extract($data);
         $user = $this->db->connect->prepare("UPDATE customers SET 
@@ -63,7 +66,13 @@ class ModelCustomer extends BaseModel
             return false;
         }
     }
-    public function getCustomer($id){
-        return $this->db->query("SELECT * FROM customers WHERE customers.id = '$id'");
+    public function deleteCustomer($data){
+        extract($data);
+        $delete = $this->db->query("DELETE FROM customers WHERE customers.id = '{$data['customer_id']}'");
+        if ($delete) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

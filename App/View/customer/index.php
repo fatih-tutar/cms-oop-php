@@ -32,7 +32,6 @@
     <table class="table table-bordered">
       <thead>                  
         <tr>
-          <th style="width: 10px">#</th>
           <th>Customers</th>
           <th>Projects</th>
           <th style="width: 40px">Action</th>
@@ -40,8 +39,7 @@
       </thead>
       <tbody>
         <?php foreach($data['customers'] as $key => $value): ?>
-        <tr>
-          <td>1.</td>
+        <tr id="row_<?= $value['id'] ?>">
           <td><?= $value['name'].' '.$value['surname'] ?></td>
           <td>
             <div class="progress progress-xs">
@@ -65,9 +63,24 @@
 <script src="<?= assets('plugins/jquery/jquery.min.js') ?>"></script>
 <script src="<?= assets('plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 <script src="<?= assets('js/adminlte.min.js') ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   function removeCustomer(id){
-
+    let customer_id = id;
+    let formData = new FormData();
+    formData.append('customer_id', customer_id);
+    axios.post('<?= _link('customer/delete') ?>', formData)
+      .then(res => {
+        if(res.data.redirect){
+            document.getElementById('row_'+res.data.deleted).remove();
+            window.location.href = res.data.redirect;
+        }
+        Swal.fire(
+            res.data.title,
+            res.data.msg,
+            res.data.status
+        );
+      }).catch((err) => { console.log(err); })
   }
 </script>
 </body>
