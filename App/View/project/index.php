@@ -1,80 +1,120 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Starter</title>
-
-  <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?= assets('plugins/fontawesome-free/css/all.min.css') ?>">
-  <!-- Theme style -->
   <link rel="stylesheet" href="<?= assets('css/adminlte.min.css') ?>">
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-  
+<div class="wrapper">  
   <?= $data['navbar']; ?>
   <?= $data['sidebar']; ?>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Project Page</h1>
-          </div><!-- /.col -->
+            <h1 class="m-0">Customer Page</h1>
+          </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="<?= _link('') ?>">Discovery</a></li>
+              <li class="breadcrumb-item active">Customers</li>
             </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- /.content-header -->
-
-    <!-- /.content -->
+    <div class="content">
+    <table class="table table-bordered">
+      <thead>                  
+        <tr>
+          <th>Customers</th>
+          <th>Projects</th>
+          <th style="width: 40px">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($data['customers'] as $key => $value): ?>
+        <tr id="row_<?= $value['id'] ?>">
+          <td><?= $value['name'].' '.$value['surname'] ?></td>
+          <td>
+            <div class="progress progress-xs">
+              <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+            </div>
+          </td>
+          <td>
+            <div class="btn-group btn-group-sm">
+              <button onclick="confirm('<?= $value['id'] ?>')" class="btn btn-sm btn-danger">Delete</button>
+              <a href="<?= _link('customer/edit/'.$value['id']) ?>" class="btn btn-sm btn-secondary">Edit</a>
+            </div>
+          </td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    </div>
   </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
+  <?= $data['footer']; ?>
 </div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
 <script src="<?= assets('plugins/jquery/jquery.min.js') ?>"></script>
-<!-- Bootstrap 4 -->
 <script src="<?= assets('plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-<!-- AdminLTE App -->
+<script src="<?= assets('plugins/sweetalert2/sweetalert2.all.min.js') ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="<?= assets('js/adminlte.min.js') ?>"></script>
+<script>
+  function confirm(id){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            const timer = Swal.getPopup().querySelector("b");
+            timerInterval = setInterval(() => {
+              timer.textContent = `${Swal.getTimerLeft()}`;
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          }
+        });
+        deleteCustomer(id);
+      }
+    });
+  }
+  function deleteCustomer(id){
+    let customer_id = id;
+    let formData = new FormData();
+    formData.append('customer_id', customer_id);
+    axios.post('<?= _link('customer/delete') ?>', formData)
+      .then(res => {
+        if(res.data.redirect){
+            document.getElementById('row_'+res.data.deleted).remove();
+            window.location.href = res.data.redirect;
+        }
+        Swal.fire(
+            res.data.title,
+            res.data.msg,
+            res.data.status
+        );
+      }).catch((err) => { console.log(err); })
+  }
+</script>
 </body>
 </html>

@@ -48,7 +48,7 @@
           </td>
           <td>
             <div class="btn-group btn-group-sm">
-              <button onclick="removeCustomer('<?= $value['id'] ?>')" class="btn btn-sm btn-danger">Delete</button>
+              <button onclick="confirm('<?= $value['id'] ?>')" class="btn btn-sm btn-danger">Delete</button>
               <a href="<?= _link('customer/edit/'.$value['id']) ?>" class="btn btn-sm btn-secondary">Edit</a>
             </div>
           </td>
@@ -62,10 +62,43 @@
 </div>
 <script src="<?= assets('plugins/jquery/jquery.min.js') ?>"></script>
 <script src="<?= assets('plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-<script src="<?= assets('js/adminlte.min.js') ?>"></script>
+<script src="<?= assets('plugins/sweetalert2/sweetalert2.all.min.js') ?>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="<?= assets('js/adminlte.min.js') ?>"></script>
 <script>
-  function removeCustomer(id){
+  function confirm(id){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            const timer = Swal.getPopup().querySelector("b");
+            timerInterval = setInterval(() => {
+              timer.textContent = `${Swal.getTimerLeft()}`;
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          }
+        });
+        deleteCustomer(id);
+      }
+    });
+  }
+  function deleteCustomer(id){
     let customer_id = id;
     let formData = new FormData();
     formData.append('customer_id', customer_id);
