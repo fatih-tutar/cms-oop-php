@@ -21,5 +21,8 @@ $cms->router->mount('/customer', function() use ($cms) {
 $cms->router->mount('/project', function() use ($cms) {
     $cms->router->get('/', 'Controllers\Project@Index');
     $cms->router->get('/add', 'Controllers\Project@Add');
+    $cms->router->post('/add', 'Controllers\Project@CreateProject');
     $cms->router->get('/edit/([0-9]+)', 'Controllers\Project@Edit');
+    $cms->router->post('/edit', 'Controllers\Project@EditProject');
+    $cms->router->post('/delete', 'Controllers\Project@DeleteProject');
 });
