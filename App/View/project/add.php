@@ -18,13 +18,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Customer Page</h1>
+            <h1 class="m-0">Project Page</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="<?= _link('') ?>">Discovery</a></li>
-              <li class="breadcrumb-item"><a href="<?= _link('customer') ?>">Customers</a></li>
-              <li class="breadcrumb-item active">Add Customer</li>
+              <li class="breadcrumb-item"><a href="<?= _link('customer') ?>">Projects</a></li>
+              <li class="breadcrumb-item active">Add Project</li>
             </ol>
           </div>
         </div>
@@ -34,19 +34,23 @@
         <form id="customer" role="form">
             <div class="card-body">
                 <div class="form-group">
-                    <label for="customer_name">Name</label>
-                    <input type="text" class="form-control" id="customer_name">
+                  <label for="customer_name">Select a customer</label>
+                  <input type="text" class="form-control" id="customer_name">
                 </div>
                 <div class="form-group">
-                    <label for="customer_surname">Surname</label>
-                    <input type="text" class="form-control" id="customer_surname">
+                  <label for="customer_surname">Project Title</label>
+                  <input type="text" class="form-control" id="customer_surname">
                 </div>
                 <div class="form-group">
-                    <label for="customer_company">Company</label>
-                    <input type="text" class="form-control" id="customer_company">
+                    <label for="customer_address">Project Description</label>
+                    <textarea class="form-control" id="customer_address"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="customer_phone">Phone</label>
+                  <label for="customer_company">Start Date</label>
+                  <input type="text" class="form-control" id="customer_company">
+                </div>
+                <div class="form-group">
+                    <label for="customer_phone">End Date</label>
                     <input type="text" class="form-control" id="customer_phone">
                 </div>
                 <div class="form-group">
@@ -56,10 +60,6 @@
                 <div class="form-group">
                     <label for="customer_email">E-mail</label>
                     <input type="text" class="form-control" id="customer_email">
-                </div>
-                <div class="form-group">
-                    <label for="customer_address">Address</label>
-                    <textarea class="form-control" id="customer_address"></textarea>
                 </div>
             </div>
             <div class="card-footer">
